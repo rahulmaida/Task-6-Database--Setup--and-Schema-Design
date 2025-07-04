@@ -1,0 +1,25 @@
+SELECT *
+FROM Customers
+WHERE CustomerID IN (
+  SELECT CustomerID FROM Orders
+);
+SELECT *
+FROM Customers C
+WHERE EXISTS (
+  SELECT 1 FROM Orders O WHERE O.CustomerID = C.CustomerID
+);
+SELECT Name
+FROM Customers
+WHERE CustomerID = (
+  SELECT CustomerID FROM Orders ORDER BY Amount DESC LIMIT 1
+);
+SELECT *
+FROM Orders
+WHERE CustomerID IN (
+  SELECT CustomerID FROM Customers WHERE City = 'New York'
+);
+SELECT *
+FROM Orders O
+WHERE EXISTS (
+  SELECT 1 FROM Customers C WHERE C.CustomerID = O.CustomerID
+);
