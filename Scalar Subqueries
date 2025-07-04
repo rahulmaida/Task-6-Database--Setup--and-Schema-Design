@@ -1,0 +1,24 @@
+SELECT Name,
+(SELECT COUNT(*) FROM Orders O WHERE O.CustomerID = C.CustomerID) AS OrderCount
+FROM Customers C;
+SELECT Name
+FROM Customers
+WHERE CustomerID = (
+SELECT CustomerID
+FROM Orders
+ORDER BY Amount DESC
+LIMIT 1
+);
+SELECT OrderID, Amount,
+(SELECT AVG(Amount) FROM Orders) AS AvgOrder
+FROM Orders;
+SELECT *
+FROM Customers
+WHERE City = (
+SELECT City FROM Customers WHERE CustomerID = 1
+);
+SELECT *
+FROM Orders
+WHERE Amount > (
+SELECT AVG(Amount) FROM Orders
+);
