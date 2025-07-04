@@ -1,0 +1,29 @@
+SELECT Name
+FROM Customers C
+WHERE EXISTS (
+  SELECT 1 FROM Orders O WHERE O.CustomerID = C.CustomerID
+);
+SELECT *
+FROM Orders O1
+WHERE Amount > (
+  SELECT AVG(Amount)
+  FROM Orders O2
+  WHERE O2.CustomerID = O1.CustomerID
+);
+SELECT *
+FROM Customers C
+WHERE (
+  SELECT SUM(Amount) FROM Orders O WHERE O.CustomerID = C.CustomerID
+) > 400;
+SELECT *
+FROM Orders O1
+WHERE OrderDate = (
+  SELECT MAX(OrderDate)
+  FROM Orders O2
+  WHERE O2.CustomerID = O1.CustomerID
+);
+SELECT *
+FROM Customers C
+WHERE (
+  SELECT COUNT(*) FROM Orders O WHERE O.CustomerID = C.CustomerID
+) > 1;
